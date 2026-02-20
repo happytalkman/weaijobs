@@ -107,7 +107,7 @@ python main.py --reload
 ### 4. 접속
 
 ```
-http://localhost:8000
+http://localhost:8001
 ```
 
 ---
@@ -167,7 +167,7 @@ weaijobs/
 # REST API 사용 예시
 import requests
 
-response = requests.post("http://localhost:8000/api/chat", json={
+response = requests.post("http://localhost:8001/api/chat", json={
     "message": "냉장고에 달걀, 감자, 양파 있어. 뭐 만들어 먹어?",
     "session_id": "my_session"
 })

@@ -5,7 +5,7 @@ weAID - 생활지능파트너
 실행 방법:
     python main.py              # 웹 서버 실행 (기본)
     python main.py --cli        # CLI 모드 (터미널 대화)
-    python main.py --host 0.0.0.0 --port 8000
+    python main.py --host 0.0.0.0 --port 8001
 """
 import sys
 import asyncio
@@ -13,7 +13,7 @@ import argparse
 import uvicorn
 
 
-def run_server(host: str = "0.0.0.0", port: int = 8000, reload: bool = False):
+def run_server(host: str = "0.0.0.0", port: int = 8001, reload: bool = False):
     """FastAPI 웹 서버를 실행합니다."""
     print(f"""
 ╔══════════════════════════════════════════════════════════╗
@@ -132,7 +132,7 @@ def main():
     )
     parser.add_argument("--cli", action="store_true", help="CLI 모드로 실행")
     parser.add_argument("--host", default="0.0.0.0", help="서버 호스트 (기본: 0.0.0.0)")
-    parser.add_argument("--port", type=int, default=8000, help="서버 포트 (기본: 8000)")
+    parser.add_argument("--port", type=int, default=8001, help="서버 포트 (기본: 8001)")
     parser.add_argument("--reload", action="store_true", help="개발 모드 (파일 변경 시 자동 재시작)")
 
     args = parser.parse_args()
