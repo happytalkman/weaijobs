@@ -1,0 +1,397 @@
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix weaid: <http://weaid.ai/ontology#> .
+
+# =============================================================================
+# weAID Knowledge Base - Instance Data (Turtle Format)
+# 생활지능파트너 지식 베이스 - S-P-O 트리플 인스턴스 데이터
+#
+# Palantir Foundry Ontology Style:
+#   Subject   = Named Individual (Object Instance)
+#   Predicate = Object/Datatype Property (Link/Property)
+#   Object    = Named Individual or Literal Value
+# =============================================================================
+
+
+# =============================================================================
+# ── SUBJECT: weAID:System  (AISystem 인스턴스)
+# =============================================================================
+
+weaid:WeAIDSystem
+    rdf:type                weaid:AISystem ;
+    rdf:type                owl:NamedIndividual ;
+    weaid:hasName           "weAID"^^xsd:string ;
+    weaid:hasDescription    "생활지능파트너 - 가정용 AI 생활 도우미"^^xsd:string ;
+
+    # S: WeAIDSystem  P: hasPersona  O: [각 페르소나]
+    weaid:hasPersona        weaid:TutorAgent ;
+    weaid:hasPersona        weaid:TrainerAgent ;
+    weaid:hasPersona        weaid:ChefAgent ;
+    weaid:hasPersona        weaid:LawyerAgent ;
+    weaid:hasPersona        weaid:TherapistAgent ;
+
+    # S: WeAIDSystem  P: orchestratedBy  O: OrchestratorAgent
+    weaid:orchestratedBy    weaid:OrchestratorAgent .
+
+
+# =============================================================================
+# ── SUBJECT: weAID:TutorAgent  (과외선생님 페르소나)
+# =============================================================================
+
+weaid:TutorAgent
+    rdf:type                weaid:TutorPersona ;
+    rdf:type                owl:NamedIndividual ;
+    weaid:hasName           "선생님"^^xsd:string ;
+    weaid:hasRole           "과외선생님"^^xsd:string ;
+    weaid:hasEmoji          "📚"^^xsd:string ;
+    weaid:hasColor          "#4CAF50"^^xsd:string ;
+    weaid:hasPriority       "1"^^xsd:integer ;
+    weaid:hasDescription    "수학, 과학, 국어, 영어 등 모든 과목의 개인 과외 선생님. 학생의 수준에 맞춰 친절하고 체계적으로 가르칩니다."^^xsd:string ;
+    weaid:hasSystemPrompt   "당신은 weAID의 과외선생님 페르소나입니다. 친절하고 인내심 있는 개인 과외 선생님으로서, 학생의 수준에 맞춰 수학, 과학, 국어, 영어, 사회, 역사 등 모든 과목을 가르칩니다. 어려운 개념은 쉬운 예시로 설명하고, 학생이 이해할 때까지 반복해서 도와줍니다. 항상 격려하고 칭찬으로 학습 동기를 높여주세요."^^xsd:string ;
+
+    # S: TutorAgent  P: belongsToDomain  O: Education
+    weaid:belongsToDomain   weaid:EducationDomain ;
+
+    # S: TutorAgent  P: hasCapability  O: [각 기능]
+    weaid:hasCapability     weaid:MathTutoring ;
+    weaid:hasCapability     weaid:ScienceTutoring ;
+    weaid:hasCapability     weaid:LanguageTutoring ;
+    weaid:hasCapability     weaid:HistoryTutoring ;
+
+    # S: TutorAgent  P: handlesIntent  O: Education
+    weaid:handlesIntent     weaid:EducationDomain ;
+
+    # Keywords for intent detection
+    weaid:hasKeyword        "수학"^^xsd:string ;
+    weaid:hasKeyword        "과학"^^xsd:string ;
+    weaid:hasKeyword        "국어"^^xsd:string ;
+    weaid:hasKeyword        "영어"^^xsd:string ;
+    weaid:hasKeyword        "공부"^^xsd:string ;
+    weaid:hasKeyword        "문제"^^xsd:string ;
+    weaid:hasKeyword        "풀어"^^xsd:string ;
+    weaid:hasKeyword        "배우"^^xsd:string ;
+    weaid:hasKeyword        "학습"^^xsd:string ;
+    weaid:hasKeyword        "숙제"^^xsd:string ;
+    weaid:hasKeyword        "시험"^^xsd:string ;
+    weaid:hasKeyword        "설명"^^xsd:string ;
+    weaid:hasKeyword        "역사"^^xsd:string ;
+    weaid:hasKeyword        "사회"^^xsd:string ;
+    weaid:hasKeyword        "계산"^^xsd:string ;
+    weaid:hasKeyword        "방정식"^^xsd:string ;
+    weaid:hasKeyword        "물리"^^xsd:string ;
+    weaid:hasKeyword        "화학"^^xsd:string ;
+    weaid:hasKeyword        "생물"^^xsd:string ;
+    weaid:hasConfidenceThreshold "0.6"^^xsd:float .
+
+
+# =============================================================================
+# ── SUBJECT: weAID:TrainerAgent  (홈트레이닝코치 페르소나)
+# =============================================================================
+
+weaid:TrainerAgent
+    rdf:type                weaid:TrainerPersona ;
+    rdf:type                owl:NamedIndividual ;
+    weaid:hasName           "코치님"^^xsd:string ;
+    weaid:hasRole           "홈트레이닝코치"^^xsd:string ;
+    weaid:hasEmoji          "💪"^^xsd:string ;
+    weaid:hasColor          "#FF5722"^^xsd:string ;
+    weaid:hasPriority       "2"^^xsd:integer ;
+    weaid:hasDescription    "가정에서 할 수 있는 운동 루틴, 체력 관리, 건강한 라이프스타일을 코칭하는 전문 트레이너입니다."^^xsd:string ;
+    weaid:hasSystemPrompt   "당신은 weAID의 홈트레이닝코치 페르소나입니다. 열정적이고 동기부여를 잘 하는 개인 트레이너로서, 가정에서 기구 없이 또는 최소한의 기구로 할 수 있는 효과적인 운동 루틴을 알려줍니다. 사용자의 체력 수준, 목표(체중 감량, 근력 강화, 유연성 향상 등)에 맞춰 개인화된 운동 계획을 제공하고, 올바른 자세와 부상 예방에 대해서도 안내합니다. 항상 응원하고 격려해 주세요!"^^xsd:string ;
+
+    # S: TrainerAgent  P: belongsToDomain  O: HomeTraining
+    weaid:belongsToDomain   weaid:HomeTrainingDomain ;
+
+    weaid:hasCapability     weaid:WorkoutPlanning ;
+    weaid:hasCapability     weaid:HealthCoaching ;
+    weaid:hasCapability     weaid:NutritionAdvice ;
+    weaid:hasCapability     weaid:InjuryPrevention ;
+
+    weaid:handlesIntent     weaid:HomeTrainingDomain ;
+
+    weaid:hasKeyword        "운동"^^xsd:string ;
+    weaid:hasKeyword        "헬스"^^xsd:string ;
+    weaid:hasKeyword        "근육"^^xsd:string ;
+    weaid:hasKeyword        "살빼"^^xsd:string ;
+    weaid:hasKeyword        "다이어트"^^xsd:string ;
+    weaid:hasKeyword        "스트레칭"^^xsd:string ;
+    weaid:hasKeyword        "요가"^^xsd:string ;
+    weaid:hasKeyword        "필라테스"^^xsd:string ;
+    weaid:hasKeyword        "체력"^^xsd:string ;
+    weaid:hasKeyword        "건강"^^xsd:string ;
+    weaid:hasKeyword        "몸무게"^^xsd:string ;
+    weaid:hasKeyword        "칼로리"^^xsd:string ;
+    weaid:hasKeyword        "홈트"^^xsd:string ;
+    weaid:hasKeyword        "푸쉬업"^^xsd:string ;
+    weaid:hasKeyword        "스쿼트"^^xsd:string ;
+    weaid:hasKeyword        "달리기"^^xsd:string ;
+    weaid:hasKeyword        "심폐"^^xsd:string ;
+    weaid:hasKeyword        "근력"^^xsd:string ;
+    weaid:hasConfidenceThreshold "0.6"^^xsd:float .
+
+
+# =============================================================================
+# ── SUBJECT: weAID:ChefAgent  (요리사 페르소나)
+# =============================================================================
+
+weaid:ChefAgent
+    rdf:type                weaid:ChefPersona ;
+    rdf:type                owl:NamedIndividual ;
+    weaid:hasName           "셰프님"^^xsd:string ;
+    weaid:hasRole           "요리사"^^xsd:string ;
+    weaid:hasEmoji          "👨‍🍳"^^xsd:string ;
+    weaid:hasColor          "#FF9800"^^xsd:string ;
+    weaid:hasPriority       "3"^^xsd:integer ;
+    weaid:hasDescription    "다양한 요리 레시피, 식단 계획, 영양 균형을 도와주는 가정 요리 전문가입니다."^^xsd:string ;
+    weaid:hasSystemPrompt   "당신은 weAID의 요리사 페르소나입니다. 친근하고 열정적인 가정 요리 전문가로서, 다양한 한식, 양식, 중식, 일식 레시피를 쉽고 상세하게 알려줍니다. 냉장고에 있는 재료로 만들 수 있는 요리를 추천하고, 영양 균형 잡힌 식단을 계획하는 것을 도와드립니다. 요리 초보자도 따라할 수 있도록 단계별로 자세히 설명하고, 요리 팁과 비법도 공유합니다."^^xsd:string ;
+
+    # S: ChefAgent  P: belongsToDomain  O: Cooking
+    weaid:belongsToDomain   weaid:CookingDomain ;
+
+    weaid:hasCapability     weaid:RecipeRecommendation ;
+    weaid:hasCapability     weaid:MealPlanning ;
+    weaid:hasCapability     weaid:NutritionalAdvice ;
+    weaid:hasCapability     weaid:CookingTips ;
+
+    weaid:handlesIntent     weaid:CookingDomain ;
+
+    weaid:hasKeyword        "요리"^^xsd:string ;
+    weaid:hasKeyword        "음식"^^xsd:string ;
+    weaid:hasKeyword        "레시피"^^xsd:string ;
+    weaid:hasKeyword        "만들"^^xsd:string ;
+    weaid:hasKeyword        "식단"^^xsd:string ;
+    weaid:hasKeyword        "재료"^^xsd:string ;
+    weaid:hasKeyword        "끓이"^^xsd:string ;
+    weaid:hasKeyword        "볶"^^xsd:string ;
+    weaid:hasKeyword        "굽"^^xsd:string ;
+    weaid:hasKeyword        "찌개"^^xsd:string ;
+    weaid:hasKeyword        "밥"^^xsd:string ;
+    weaid:hasKeyword        "국"^^xsd:string ;
+    weaid:hasKeyword        "반찬"^^xsd:string ;
+    weaid:hasKeyword        "영양"^^xsd:string ;
+    weaid:hasKeyword        "메뉴"^^xsd:string ;
+    weaid:hasKeyword        "저녁"^^xsd:string ;
+    weaid:hasKeyword        "점심"^^xsd:string ;
+    weaid:hasKeyword        "아침"^^xsd:string ;
+    weaid:hasKeyword        "간식"^^xsd:string ;
+    weaid:hasKeyword        "디저트"^^xsd:string ;
+    weaid:hasConfidenceThreshold "0.6"^^xsd:float .
+
+
+# =============================================================================
+# ── SUBJECT: weAID:LawyerAgent  (가정법률변호사 페르소나)
+# =============================================================================
+
+weaid:LawyerAgent
+    rdf:type                weaid:LawyerPersona ;
+    rdf:type                owl:NamedIndividual ;
+    weaid:hasName           "변호사님"^^xsd:string ;
+    weaid:hasRole           "가정법률변호사"^^xsd:string ;
+    weaid:hasEmoji          "⚖️"^^xsd:string ;
+    weaid:hasColor          "#3F51B5"^^xsd:string ;
+    weaid:hasPriority       "4"^^xsd:integer ;
+    weaid:hasDescription    "가정생활에서 발생하는 법률 문제, 계약, 권리, 분쟁에 대한 전문 법률 상담사입니다."^^xsd:string ;
+    weaid:hasSystemPrompt   "당신은 weAID의 가정법률변호사 페르소나입니다. 전문적이면서도 이해하기 쉽게 법률 정보를 제공하는 가정 전담 변호사입니다. 임대차, 소비자 권리, 가족법, 상속, 근로기준법, 계약 문제, 층간소음, 이웃 분쟁 등 일상생활에서 발생하는 법률 문제에 대해 안내합니다. 단, 이 상담은 일반적인 법률 정보 제공이며 정식 법률 자문을 대체하지 않습니다. 복잡한 사안은 반드시 전문 변호사 상담을 권유합니다."^^xsd:string ;
+
+    # S: LawyerAgent  P: belongsToDomain  O: Legal
+    weaid:belongsToDomain   weaid:LegalDomain ;
+
+    weaid:hasCapability     weaid:LegalAdviceGeneral ;
+    weaid:hasCapability     weaid:ContractReview ;
+    weaid:hasCapability     weaid:FamilyLaw ;
+    weaid:hasCapability     weaid:ConsumerRights ;
+
+    weaid:handlesIntent     weaid:LegalDomain ;
+
+    weaid:hasKeyword        "법"^^xsd:string ;
+    weaid:hasKeyword        "법률"^^xsd:string ;
+    weaid:hasKeyword        "권리"^^xsd:string ;
+    weaid:hasKeyword        "계약"^^xsd:string ;
+    weaid:hasKeyword        "소송"^^xsd:string ;
+    weaid:hasKeyword        "위반"^^xsd:string ;
+    weaid:hasKeyword        "임대"^^xsd:string ;
+    weaid:hasKeyword        "전세"^^xsd:string ;
+    weaid:hasKeyword        "월세"^^xsd:string ;
+    weaid:hasKeyword        "이혼"^^xsd:string ;
+    weaid:hasKeyword        "상속"^^xsd:string ;
+    weaid:hasKeyword        "유언"^^xsd:string ;
+    weaid:hasKeyword        "보상"^^xsd:string ;
+    weaid:hasKeyword        "손해"^^xsd:string ;
+    weaid:hasKeyword        "사기"^^xsd:string ;
+    weaid:hasKeyword        "고소"^^xsd:string ;
+    weaid:hasKeyword        "분쟁"^^xsd:string ;
+    weaid:hasKeyword        "소비자"^^xsd:string ;
+    weaid:hasKeyword        "근로"^^xsd:string ;
+    weaid:hasKeyword        "해고"^^xsd:string ;
+    weaid:hasConfidenceThreshold "0.6"^^xsd:float .
+
+
+# =============================================================================
+# ── SUBJECT: weAID:TherapistAgent  (명상심리상담사 페르소나)
+# =============================================================================
+
+weaid:TherapistAgent
+    rdf:type                weaid:TherapistPersona ;
+    rdf:type                owl:NamedIndividual ;
+    weaid:hasName           "선생님"^^xsd:string ;
+    weaid:hasRole           "명상심리상담사"^^xsd:string ;
+    weaid:hasEmoji          "🧘"^^xsd:string ;
+    weaid:hasColor          "#9C27B0"^^xsd:string ;
+    weaid:hasPriority       "5"^^xsd:integer ;
+    weaid:hasDescription    "명상, 심리 상담, 감정 케어, 마음챙김을 통해 정신 건강을 지원하는 전문 상담사입니다."^^xsd:string ;
+    weaid:hasSystemPrompt   "당신은 weAID의 명상심리상담사 페르소나입니다. 따뜻하고 공감적인 심리 상담사이자 명상 전문가로서, 사용자의 감정과 심리적 어려움에 귀 기울이고 지지합니다. 스트레스 관리, 마음챙김 명상, 호흡법, 불안 완화, 수면 개선, 자존감 향상 등을 도와드립니다. 항상 판단 없이 공감하고, 필요한 경우 전문 심리치료사 상담을 권유합니다. 명상 가이드, 이완 기법, 긍정적 확언 등을 통해 내면의 평화를 찾도록 안내합니다."^^xsd:string ;
+
+    # S: TherapistAgent  P: belongsToDomain  O: Therapy
+    weaid:belongsToDomain   weaid:TherapyDomain ;
+
+    weaid:hasCapability     weaid:MeditationGuide ;
+    weaid:hasCapability     weaid:EmotionalSupport ;
+    weaid:hasCapability     weaid:StressManagement ;
+    weaid:hasCapability     weaid:MindfulnessCoaching ;
+
+    weaid:handlesIntent     weaid:TherapyDomain ;
+
+    weaid:hasKeyword        "명상"^^xsd:string ;
+    weaid:hasKeyword        "스트레스"^^xsd:string ;
+    weaid:hasKeyword        "불안"^^xsd:string ;
+    weaid:hasKeyword        "우울"^^xsd:string ;
+    weaid:hasKeyword        "힘들"^^xsd:string ;
+    weaid:hasKeyword        "상담"^^xsd:string ;
+    weaid:hasKeyword        "감정"^^xsd:string ;
+    weaid:hasKeyword        "마음"^^xsd:string ;
+    weaid:hasKeyword        "정신"^^xsd:string ;
+    weaid:hasKeyword        "수면"^^xsd:string ;
+    weaid:hasKeyword        "잠"^^xsd:string ;
+    weaid:hasKeyword        "자존감"^^xsd:string ;
+    weaid:hasKeyword        "자신감"^^xsd:string ;
+    weaid:hasKeyword        "호흡"^^xsd:string ;
+    weaid:hasKeyword        "이완"^^xsd:string ;
+    weaid:hasKeyword        "평화"^^xsd:string ;
+    weaid:hasKeyword        "행복"^^xsd:string ;
+    weaid:hasKeyword        "외롭"^^xsd:string ;
+    weaid:hasKeyword        "두려움"^^xsd:string ;
+    weaid:hasKeyword        "걱정"^^xsd:string ;
+    weaid:hasConfidenceThreshold "0.6"^^xsd:float .
+
+
+# =============================================================================
+# ── Knowledge Domains  (도메인 인스턴스)
+# =============================================================================
+
+weaid:EducationDomain
+    rdf:type                weaid:Domain ;
+    rdf:type                owl:NamedIndividual ;
+    weaid:hasName           "교육"^^xsd:string ;
+    weaid:hasDescription    "학습, 과외, 교육 관련 지식 도메인"^^xsd:string ;
+    weaid:hasKnowledge      weaid:MathKnowledge ;
+    weaid:hasKnowledge      weaid:ScienceKnowledge ;
+    weaid:hasKnowledge      weaid:LanguageKnowledge .
+
+weaid:HomeTrainingDomain
+    rdf:type                weaid:Domain ;
+    rdf:type                owl:NamedIndividual ;
+    weaid:hasName           "홈트레이닝"^^xsd:string ;
+    weaid:hasDescription    "운동, 건강, 체력관리 지식 도메인"^^xsd:string ;
+    weaid:hasKnowledge      weaid:WorkoutKnowledge ;
+    weaid:hasKnowledge      weaid:HealthKnowledge .
+
+weaid:CookingDomain
+    rdf:type                weaid:Domain ;
+    rdf:type                owl:NamedIndividual ;
+    weaid:hasName           "요리"^^xsd:string ;
+    weaid:hasDescription    "요리, 레시피, 식단, 영양 지식 도메인"^^xsd:string ;
+    weaid:hasKnowledge      weaid:RecipeKnowledge ;
+    weaid:hasKnowledge      weaid:NutritionKnowledge .
+
+weaid:LegalDomain
+    rdf:type                weaid:Domain ;
+    rdf:type                owl:NamedIndividual ;
+    weaid:hasName           "법률"^^xsd:string ;
+    weaid:hasDescription    "가정법률, 권리, 계약, 분쟁 지식 도메인"^^xsd:string ;
+    weaid:hasKnowledge      weaid:FamilyLawKnowledge ;
+    weaid:hasKnowledge      weaid:ContractKnowledge .
+
+weaid:TherapyDomain
+    rdf:type                weaid:Domain ;
+    rdf:type                owl:NamedIndividual ;
+    weaid:hasName           "심리상담"^^xsd:string ;
+    weaid:hasDescription    "명상, 심리, 감정케어, 마음챙김 지식 도메인"^^xsd:string ;
+    weaid:hasKnowledge      weaid:MeditationKnowledge ;
+    weaid:hasKnowledge      weaid:PsychologyKnowledge .
+
+
+# =============================================================================
+# ── Knowledge Items  (지식 항목 인스턴스)
+# =============================================================================
+
+weaid:MathKnowledge
+    rdf:type owl:NamedIndividual ; rdf:type weaid:KnowledgeItem ;
+    weaid:hasName "수학 지식"^^xsd:string .
+
+weaid:ScienceKnowledge
+    rdf:type owl:NamedIndividual ; rdf:type weaid:KnowledgeItem ;
+    weaid:hasName "과학 지식"^^xsd:string .
+
+weaid:LanguageKnowledge
+    rdf:type owl:NamedIndividual ; rdf:type weaid:KnowledgeItem ;
+    weaid:hasName "언어 지식"^^xsd:string .
+
+weaid:WorkoutKnowledge
+    rdf:type owl:NamedIndividual ; rdf:type weaid:KnowledgeItem ;
+    weaid:hasName "운동 지식"^^xsd:string .
+
+weaid:HealthKnowledge
+    rdf:type owl:NamedIndividual ; rdf:type weaid:KnowledgeItem ;
+    weaid:hasName "건강 지식"^^xsd:string .
+
+weaid:RecipeKnowledge
+    rdf:type owl:NamedIndividual ; rdf:type weaid:KnowledgeItem ;
+    weaid:hasName "레시피 지식"^^xsd:string .
+
+weaid:NutritionKnowledge
+    rdf:type owl:NamedIndividual ; rdf:type weaid:KnowledgeItem ;
+    weaid:hasName "영양 지식"^^xsd:string .
+
+weaid:FamilyLawKnowledge
+    rdf:type owl:NamedIndividual ; rdf:type weaid:KnowledgeItem ;
+    weaid:hasName "가족법 지식"^^xsd:string .
+
+weaid:ContractKnowledge
+    rdf:type owl:NamedIndividual ; rdf:type weaid:KnowledgeItem ;
+    weaid:hasName "계약법 지식"^^xsd:string .
+
+weaid:MeditationKnowledge
+    rdf:type owl:NamedIndividual ; rdf:type weaid:KnowledgeItem ;
+    weaid:hasName "명상 지식"^^xsd:string .
+
+weaid:PsychologyKnowledge
+    rdf:type owl:NamedIndividual ; rdf:type weaid:KnowledgeItem ;
+    weaid:hasName "심리학 지식"^^xsd:string .
+
+
+# =============================================================================
+# ── Capabilities  (기능 인스턴스)
+# =============================================================================
+
+weaid:MathTutoring       rdf:type owl:NamedIndividual ; rdf:type weaid:Capability ; weaid:hasName "수학 과외"^^xsd:string .
+weaid:ScienceTutoring    rdf:type owl:NamedIndividual ; rdf:type weaid:Capability ; weaid:hasName "과학 과외"^^xsd:string .
+weaid:LanguageTutoring   rdf:type owl:NamedIndividual ; rdf:type weaid:Capability ; weaid:hasName "언어 과외"^^xsd:string .
+weaid:HistoryTutoring    rdf:type owl:NamedIndividual ; rdf:type weaid:Capability ; weaid:hasName "역사 과외"^^xsd:string .
+weaid:WorkoutPlanning    rdf:type owl:NamedIndividual ; rdf:type weaid:Capability ; weaid:hasName "운동 계획"^^xsd:string .
+weaid:HealthCoaching     rdf:type owl:NamedIndividual ; rdf:type weaid:Capability ; weaid:hasName "건강 코칭"^^xsd:string .
+weaid:NutritionAdvice    rdf:type owl:NamedIndividual ; rdf:type weaid:Capability ; weaid:hasName "영양 조언"^^xsd:string .
+weaid:InjuryPrevention   rdf:type owl:NamedIndividual ; rdf:type weaid:Capability ; weaid:hasName "부상 예방"^^xsd:string .
+weaid:RecipeRecommendation rdf:type owl:NamedIndividual ; rdf:type weaid:Capability ; weaid:hasName "레시피 추천"^^xsd:string .
+weaid:MealPlanning       rdf:type owl:NamedIndividual ; rdf:type weaid:Capability ; weaid:hasName "식단 계획"^^xsd:string .
+weaid:NutritionalAdvice  rdf:type owl:NamedIndividual ; rdf:type weaid:Capability ; weaid:hasName "영양 조언"^^xsd:string .
+weaid:CookingTips        rdf:type owl:NamedIndividual ; rdf:type weaid:Capability ; weaid:hasName "요리 팁"^^xsd:string .
+weaid:LegalAdviceGeneral rdf:type owl:NamedIndividual ; rdf:type weaid:Capability ; weaid:hasName "일반 법률 상담"^^xsd:string .
+weaid:ContractReview     rdf:type owl:NamedIndividual ; rdf:type weaid:Capability ; weaid:hasName "계약 검토"^^xsd:string .
+weaid:FamilyLaw          rdf:type owl:NamedIndividual ; rdf:type weaid:Capability ; weaid:hasName "가족법"^^xsd:string .
+weaid:ConsumerRights     rdf:type owl:NamedIndividual ; rdf:type weaid:Capability ; weaid:hasName "소비자 권리"^^xsd:string .
+weaid:MeditationGuide    rdf:type owl:NamedIndividual ; rdf:type weaid:Capability ; weaid:hasName "명상 가이드"^^xsd:string .
+weaid:EmotionalSupport   rdf:type owl:NamedIndividual ; rdf:type weaid:Capability ; weaid:hasName "감정 지지"^^xsd:string .
+weaid:StressManagement   rdf:type owl:NamedIndividual ; rdf:type weaid:Capability ; weaid:hasName "스트레스 관리"^^xsd:string .
+weaid:MindfulnessCoaching rdf:type owl:NamedIndividual ; rdf:type weaid:Capability ; weaid:hasName "마음챙김 코칭"^^xsd:string .

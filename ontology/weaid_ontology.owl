@@ -1,0 +1,299 @@
+<?xml version="1.0"?>
+<!DOCTYPE rdf:RDF [
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+    <!ENTITY weaid "http://weaid.ai/ontology#">
+]>
+
+<!--
+    weAID Living Intelligence Ontology
+    생활지능파트너 온톨로지
+
+    Palantir Foundry Ontology-style S-P-O Triple Structure
+    RDF/OWL2 Format
+
+    Object Types (Foundry) → owl:Class
+    Links (Foundry)        → owl:ObjectProperty
+    Properties (Foundry)   → owl:DatatypeProperty
+    Actions (Foundry)      → owl:AnnotationProperty
+-->
+
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+    xmlns:weaid="http://weaid.ai/ontology#"
+    xml:base="http://weaid.ai/ontology">
+
+    <!-- =================================================================== -->
+    <!--  Ontology Declaration                                                 -->
+    <!-- =================================================================== -->
+    <owl:Ontology rdf:about="http://weaid.ai/ontology">
+        <rdfs:label xml:lang="ko">weAID 생활지능파트너 온톨로지</rdfs:label>
+        <rdfs:label xml:lang="en">weAID Living Intelligence Partner Ontology</rdfs:label>
+        <rdfs:comment xml:lang="ko">
+            weAID는 가정용 AI 생활지능파트너로 5가지 페르소나(과외선생님, 홈트레이닝코치,
+            요리사, 가정법률변호사, 명상심리상담사)를 통해 생활 전반을 지원합니다.
+            Palantir Foundry 온톨로지 스타일의 S-P-O 트리플 구조 기반입니다.
+        </rdfs:comment>
+        <owl:versionInfo>1.0.0</owl:versionInfo>
+    </owl:Ontology>
+
+
+    <!-- =================================================================== -->
+    <!--  OBJECT TYPES (Foundry Object Types → owl:Class)                     -->
+    <!-- =================================================================== -->
+
+    <!-- ── AISystem: weAID 시스템 자체 ─────────────────────────────────── -->
+    <owl:Class rdf:about="weaid:AISystem">
+        <rdfs:label xml:lang="ko">AI 시스템</rdfs:label>
+        <rdfs:label xml:lang="en">AI System</rdfs:label>
+        <rdfs:comment xml:lang="ko">weAID 생활지능파트너 시스템</rdfs:comment>
+    </owl:Class>
+
+    <!-- ── Persona: 모든 페르소나의 기본 클래스 ──────────────────────────── -->
+    <owl:Class rdf:about="weaid:Persona">
+        <rdfs:label xml:lang="ko">페르소나</rdfs:label>
+        <rdfs:label xml:lang="en">Persona</rdfs:label>
+        <rdfs:comment xml:lang="ko">weAID의 전문 역할 인격체</rdfs:comment>
+    </owl:Class>
+
+    <!-- ── TutorPersona: 과외선생님 ──────────────────────────────────── -->
+    <owl:Class rdf:about="weaid:TutorPersona">
+        <rdfs:subClassOf rdf:resource="weaid:Persona"/>
+        <rdfs:label xml:lang="ko">과외선생님 페르소나</rdfs:label>
+        <rdfs:label xml:lang="en">Tutor Persona</rdfs:label>
+        <rdfs:comment xml:lang="ko">가정 교육, 학습 지원, 과목별 과외 전문 페르소나</rdfs:comment>
+    </owl:Class>
+
+    <!-- ── TrainerPersona: 홈트레이닝코치 ──────────────────────────────── -->
+    <owl:Class rdf:about="weaid:TrainerPersona">
+        <rdfs:subClassOf rdf:resource="weaid:Persona"/>
+        <rdfs:label xml:lang="ko">홈트레이닝코치 페르소나</rdfs:label>
+        <rdfs:label xml:lang="en">Home Training Coach Persona</rdfs:label>
+        <rdfs:comment xml:lang="ko">가정 운동, 체력 관리, 건강 코칭 전문 페르소나</rdfs:comment>
+    </owl:Class>
+
+    <!-- ── ChefPersona: 요리사 ──────────────────────────────────────── -->
+    <owl:Class rdf:about="weaid:ChefPersona">
+        <rdfs:subClassOf rdf:resource="weaid:Persona"/>
+        <rdfs:label xml:lang="ko">요리사 페르소나</rdfs:label>
+        <rdfs:label xml:lang="en">Chef Persona</rdfs:label>
+        <rdfs:comment xml:lang="ko">요리 레시피, 식단 계획, 영양 관리 전문 페르소나</rdfs:comment>
+    </owl:Class>
+
+    <!-- ── LawyerPersona: 가정법률변호사 ─────────────────────────────── -->
+    <owl:Class rdf:about="weaid:LawyerPersona">
+        <rdfs:subClassOf rdf:resource="weaid:Persona"/>
+        <rdfs:label xml:lang="ko">가정법률변호사 페르소나</rdfs:label>
+        <rdfs:label xml:lang="en">Home Legal Advisor Persona</rdfs:label>
+        <rdfs:comment xml:lang="ko">가정법, 계약, 권리, 법률 상담 전문 페르소나</rdfs:comment>
+    </owl:Class>
+
+    <!-- ── TherapistPersona: 명상심리상담사 ─────────────────────────── -->
+    <owl:Class rdf:about="weaid:TherapistPersona">
+        <rdfs:subClassOf rdf:resource="weaid:Persona"/>
+        <rdfs:label xml:lang="ko">명상심리상담사 페르소나</rdfs:label>
+        <rdfs:label xml:lang="en">Meditation Therapist Persona</rdfs:label>
+        <rdfs:comment xml:lang="ko">명상, 심리 상담, 감정 케어, 마음챙김 전문 페르소나</rdfs:comment>
+    </owl:Class>
+
+    <!-- ── User: 사용자 ──────────────────────────────────────────────── -->
+    <owl:Class rdf:about="weaid:User">
+        <rdfs:label xml:lang="ko">사용자</rdfs:label>
+        <rdfs:label xml:lang="en">User</rdfs:label>
+        <rdfs:comment xml:lang="ko">weAID를 사용하는 가정 구성원</rdfs:comment>
+    </owl:Class>
+
+    <!-- ── Session: 대화 세션 ────────────────────────────────────────── -->
+    <owl:Class rdf:about="weaid:Session">
+        <rdfs:label xml:lang="ko">세션</rdfs:label>
+        <rdfs:label xml:lang="en">Session</rdfs:label>
+        <rdfs:comment xml:lang="ko">사용자와 weAID 간의 대화 세션</rdfs:comment>
+    </owl:Class>
+
+    <!-- ── Command: 사용자 명령 ──────────────────────────────────────── -->
+    <owl:Class rdf:about="weaid:Command">
+        <rdfs:label xml:lang="ko">명령</rdfs:label>
+        <rdfs:label xml:lang="en">Command</rdfs:label>
+        <rdfs:comment xml:lang="ko">사용자가 음성으로 입력한 명령 또는 질문</rdfs:comment>
+    </owl:Class>
+
+    <!-- ── Domain: 지식 도메인 ───────────────────────────────────────── -->
+    <owl:Class rdf:about="weaid:Domain">
+        <rdfs:label xml:lang="ko">지식 도메인</rdfs:label>
+        <rdfs:label xml:lang="en">Knowledge Domain</rdfs:label>
+        <rdfs:comment xml:lang="ko">각 페르소나의 전문 지식 영역</rdfs:comment>
+    </owl:Class>
+
+    <!-- ── KnowledgeItem: 지식 항목 ─────────────────────────────────── -->
+    <owl:Class rdf:about="weaid:KnowledgeItem">
+        <rdfs:label xml:lang="ko">지식 항목</rdfs:label>
+        <rdfs:label xml:lang="en">Knowledge Item</rdfs:label>
+        <rdfs:comment xml:lang="ko">도메인 내의 구체적인 지식 단위</rdfs:comment>
+    </owl:Class>
+
+    <!-- ── Response: AI 응답 ─────────────────────────────────────────── -->
+    <owl:Class rdf:about="weaid:Response">
+        <rdfs:label xml:lang="ko">응답</rdfs:label>
+        <rdfs:label xml:lang="en">Response</rdfs:label>
+        <rdfs:comment xml:lang="ko">weAID가 생성한 응답</rdfs:comment>
+    </owl:Class>
+
+    <!-- ── Capability: 기능/능력 ─────────────────────────────────────── -->
+    <owl:Class rdf:about="weaid:Capability">
+        <rdfs:label xml:lang="ko">기능</rdfs:label>
+        <rdfs:label xml:lang="en">Capability</rdfs:label>
+        <rdfs:comment xml:lang="ko">각 페르소나가 수행할 수 있는 기능</rdfs:comment>
+    </owl:Class>
+
+
+    <!-- =================================================================== -->
+    <!--  LINKS (Foundry Links → owl:ObjectProperty)                          -->
+    <!--  S-P-O: Subject --[Predicate]--> Object                              -->
+    <!-- =================================================================== -->
+
+    <!-- AISystem --[hasPersona]--> Persona -->
+    <owl:ObjectProperty rdf:about="weaid:hasPersona">
+        <rdfs:domain rdf:resource="weaid:AISystem"/>
+        <rdfs:range rdf:resource="weaid:Persona"/>
+        <rdfs:label xml:lang="ko">페르소나 보유</rdfs:label>
+        <rdfs:comment xml:lang="ko">S: AISystem P: hasPersona O: Persona</rdfs:comment>
+    </owl:ObjectProperty>
+
+    <!-- Persona --[belongsToDomain]--> Domain -->
+    <owl:ObjectProperty rdf:about="weaid:belongsToDomain">
+        <rdfs:domain rdf:resource="weaid:Persona"/>
+        <rdfs:range rdf:resource="weaid:Domain"/>
+        <rdfs:label xml:lang="ko">도메인 소속</rdfs:label>
+        <rdfs:comment xml:lang="ko">S: Persona P: belongsToDomain O: Domain</rdfs:comment>
+    </owl:ObjectProperty>
+
+    <!-- Domain --[hasKnowledge]--> KnowledgeItem -->
+    <owl:ObjectProperty rdf:about="weaid:hasKnowledge">
+        <rdfs:domain rdf:resource="weaid:Domain"/>
+        <rdfs:range rdf:resource="weaid:KnowledgeItem"/>
+        <rdfs:label xml:lang="ko">지식 보유</rdfs:label>
+        <rdfs:comment xml:lang="ko">S: Domain P: hasKnowledge O: KnowledgeItem</rdfs:comment>
+    </owl:ObjectProperty>
+
+    <!-- User --[initiates]--> Session -->
+    <owl:ObjectProperty rdf:about="weaid:initiates">
+        <rdfs:domain rdf:resource="weaid:User"/>
+        <rdfs:range rdf:resource="weaid:Session"/>
+        <rdfs:label xml:lang="ko">세션 시작</rdfs:label>
+        <rdfs:comment xml:lang="ko">S: User P: initiates O: Session</rdfs:comment>
+    </owl:ObjectProperty>
+
+    <!-- Session --[containsCommand]--> Command -->
+    <owl:ObjectProperty rdf:about="weaid:containsCommand">
+        <rdfs:domain rdf:resource="weaid:Session"/>
+        <rdfs:range rdf:resource="weaid:Command"/>
+        <rdfs:label xml:lang="ko">명령 포함</rdfs:label>
+        <rdfs:comment xml:lang="ko">S: Session P: containsCommand O: Command</rdfs:comment>
+    </owl:ObjectProperty>
+
+    <!-- Command --[processedBy]--> Persona -->
+    <owl:ObjectProperty rdf:about="weaid:processedBy">
+        <rdfs:domain rdf:resource="weaid:Command"/>
+        <rdfs:range rdf:resource="weaid:Persona"/>
+        <rdfs:label xml:lang="ko">페르소나가 처리</rdfs:label>
+        <rdfs:comment xml:lang="ko">S: Command P: processedBy O: Persona</rdfs:comment>
+    </owl:ObjectProperty>
+
+    <!-- Command --[generatesResponse]--> Response -->
+    <owl:ObjectProperty rdf:about="weaid:generatesResponse">
+        <rdfs:domain rdf:resource="weaid:Command"/>
+        <rdfs:range rdf:resource="weaid:Response"/>
+        <rdfs:label xml:lang="ko">응답 생성</rdfs:label>
+        <rdfs:comment xml:lang="ko">S: Command P: generatesResponse O: Response</rdfs:comment>
+    </owl:ObjectProperty>
+
+    <!-- Persona --[hasCapability]--> Capability -->
+    <owl:ObjectProperty rdf:about="weaid:hasCapability">
+        <rdfs:domain rdf:resource="weaid:Persona"/>
+        <rdfs:range rdf:resource="weaid:Capability"/>
+        <rdfs:label xml:lang="ko">기능 보유</rdfs:label>
+        <rdfs:comment xml:lang="ko">S: Persona P: hasCapability O: Capability</rdfs:comment>
+    </owl:ObjectProperty>
+
+    <!-- Persona --[handlesIntent]--> Domain (Intent routing) -->
+    <owl:ObjectProperty rdf:about="weaid:handlesIntent">
+        <rdfs:domain rdf:resource="weaid:Persona"/>
+        <rdfs:range rdf:resource="weaid:Domain"/>
+        <rdfs:label xml:lang="ko">의도 처리</rdfs:label>
+        <rdfs:comment xml:lang="ko">S: Persona P: handlesIntent O: Domain</rdfs:comment>
+    </owl:ObjectProperty>
+
+    <!-- AISystem --[orchestratedBy]--> Persona (orchestrator reference) -->
+    <owl:ObjectProperty rdf:about="weaid:orchestratedBy">
+        <rdfs:domain rdf:resource="weaid:AISystem"/>
+        <rdfs:range rdf:resource="weaid:Persona"/>
+        <rdfs:label xml:lang="ko">오케스트레이터</rdfs:label>
+        <rdfs:comment xml:lang="ko">S: AISystem P: orchestratedBy O: OrchestratorPersona</rdfs:comment>
+    </owl:ObjectProperty>
+
+
+    <!-- =================================================================== -->
+    <!--  PROPERTIES (Foundry Properties → owl:DatatypeProperty)              -->
+    <!-- =================================================================== -->
+
+    <owl:DatatypeProperty rdf:about="weaid:hasName">
+        <rdfs:label xml:lang="ko">이름</rdfs:label>
+        <rdfs:range rdf:resource="xsd:string"/>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="weaid:hasRole">
+        <rdfs:label xml:lang="ko">역할</rdfs:label>
+        <rdfs:range rdf:resource="xsd:string"/>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="weaid:hasDescription">
+        <rdfs:label xml:lang="ko">설명</rdfs:label>
+        <rdfs:range rdf:resource="xsd:string"/>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="weaid:hasSystemPrompt">
+        <rdfs:label xml:lang="ko">시스템 프롬프트</rdfs:label>
+        <rdfs:range rdf:resource="xsd:string"/>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="weaid:hasKeyword">
+        <rdfs:label xml:lang="ko">키워드</rdfs:label>
+        <rdfs:range rdf:resource="xsd:string"/>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="weaid:hasConfidenceThreshold">
+        <rdfs:label xml:lang="ko">신뢰도 임계값</rdfs:label>
+        <rdfs:range rdf:resource="xsd:float"/>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="weaid:hasIntentScore">
+        <rdfs:label xml:lang="ko">의도 점수</rdfs:label>
+        <rdfs:range rdf:resource="xsd:float"/>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="weaid:hasTimestamp">
+        <rdfs:label xml:lang="ko">타임스탬프</rdfs:label>
+        <rdfs:range rdf:resource="xsd:dateTime"/>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="weaid:hasEmoji">
+        <rdfs:label xml:lang="ko">이모지</rdfs:label>
+        <rdfs:range rdf:resource="xsd:string"/>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="weaid:hasColor">
+        <rdfs:label xml:lang="ko">색상</rdfs:label>
+        <rdfs:range rdf:resource="xsd:string"/>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="weaid:hasPriority">
+        <rdfs:label xml:lang="ko">우선순위</rdfs:label>
+        <rdfs:range rdf:resource="xsd:integer"/>
+    </owl:DatatypeProperty>
+
+</rdf:RDF>
